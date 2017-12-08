@@ -1,0 +1,28 @@
+{
+  "name": "graphoid-web",
+  "version": "1.0.0",
+  "description": "Программа для создания алгоритмов на графах",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kinrany/graphoid-web.git"
+  },
+  "keywords": [
+    "graph"
+  ],
+  "author": "kinrany",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Kinrany/graphoid-web/issues"
+  },
+  "homepage": "https://github.com/Kinrany/graphoid-web#readme",
+  "dependencies": {
+    "gojs": "^1.8.4"
+  }
+}
