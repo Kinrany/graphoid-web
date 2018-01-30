@@ -1,6 +1,6 @@
 // set up SVG for D3
 const width = 960;
-const height = 500;
+const height = 200;
 const colors = d3.scale.category10();
 
 const svg = d3.select('div#editor')
@@ -8,7 +8,7 @@ const svg = d3.select('div#editor')
     .attr('oncontextmenu', 'return false;')
     .attr('width', width)
     .attr('height', height)
-    .attr('style', 'border: 1px solid red');
+    .attr('style', 'border: 1px solid black');
 
 // set up initial nodes and links
 //  - nodes are known by 'id', not by index in array.
