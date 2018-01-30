@@ -1,9 +1,9 @@
 // set up SVG for D3
-var width = 540,
-    height = 280,
-    colors = d3.scale.category10();
+const width = 960;
+const height = 500;
+const colors = d3.scale.category10();
 
-var svg = d3.select('body')
+const svg = d3.select('div#editor')
     .append('svg')
     .attr('oncontextmenu', 'return false;')
     .attr('width', width)
@@ -14,25 +14,26 @@ var svg = d3.select('body')
 //  - nodes are known by 'id', not by index in array.
 //  - reflexive edges are indicated on the node (as a bold black circle).
 //  - links are always source < target; edge directions are set by 'left' and 'right'.
-var nodes = [
+const nodes = [
     { id: 0, reflexive: false },
     { id: 1, reflexive: true },
     { id: 2, reflexive: false }
-],
-    lastNodeId = 2,
-    links = [
-        { source: nodes[0], target: nodes[1], left: false, right: true },
-        { source: nodes[1], target: nodes[2], left: false, right: true }
-    ];
+];
+let lastNodeId = 2;
+
+const links = [
+    { source: nodes[0], target: nodes[1], left: false, right: true },
+    { source: nodes[1], target: nodes[2], left: false, right: true }
+];
 
 // init D3 force layout
-var force = d3.layout.force()
+const force = d3.layout.force()
     .nodes(nodes)
     .links(links)
     .size([width, height])
     .linkDistance(150)
     .charge(-500)
-    .on('tick', tick)
+    .on('tick', tick);
 
 // define arrow markers for graph links
 svg.append('svg:defs').append('svg:marker')
@@ -58,20 +59,20 @@ svg.append('svg:defs').append('svg:marker')
     .attr('fill', '#000');
 
 // line displayed when dragging new nodes
-var drag_line = svg.append('svg:path')
+const drag_line = svg.append('svg:path')
     .attr('class', 'link dragline hidden')
     .attr('d', 'M0,0L0,0');
 
 // handles to link and node element groups
-var path = svg.append('svg:g').selectAll('path'),
-    circle = svg.append('svg:g').selectAll('g');
+let path = svg.append('svg:g').selectAll('path');
+let circle = svg.append('svg:g').selectAll('g');
 
 // mouse event vars
-var selected_node = null,
-    selected_link = null,
-    mousedown_link = null,
-    mousedown_node = null,
-    mouseup_node = null;
+let selected_node = null;
+let selected_link = null;
+let mousedown_link = null;
+let mousedown_node = null;
+let mouseup_node = null;
 
 function resetMouseVars() {
     mousedown_node = null;
@@ -83,22 +84,22 @@ function resetMouseVars() {
 function tick() {
     // draw directed edges with proper padding from node centers
     path.attr('d', function (d) {
-        var deltaX = d.target.x - d.source.x,
-            deltaY = d.target.y - d.source.y,
-            dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY),
-            normX = deltaX / dist,
-            normY = deltaY / dist,
-            sourcePadding = d.left ? 17 : 12,
-            targetPadding = d.right ? 17 : 12,
-            sourceX = d.source.x + (sourcePadding * normX),
-            sourceY = d.source.y + (sourcePadding * normY),
-            targetX = d.target.x - (targetPadding * normX),
-            targetY = d.target.y - (targetPadding * normY);
-        return 'M' + sourceX + ',' + sourceY + 'L' + targetX + ',' + targetY;
+        let deltaX = d.target.x - d.source.x;
+        let deltaY = d.target.y - d.source.y;
+        let dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        let normX = deltaX / dist;
+        let normY = deltaY / dist;
+        let sourcePadding = d.left ? 17 : 12;
+        let targetPadding = d.right ? 17 : 12;
+        let sourceX = d.source.x + (sourcePadding * normX);
+        let sourceY = d.source.y + (sourcePadding * normY);
+        let targetX = d.target.x - (targetPadding * normX);
+        let targetY = d.target.y - (targetPadding * normY);
+        return `M${sourceX},${sourceY}L${targetX},${targetY}`;
     });
 
     circle.attr('transform', function (d) {
-        return 'translate(' + d.x + ',' + d.y + ')';
+        return `translate(${d.x},${d.y})`;
     });
 }
 
@@ -140,7 +141,16 @@ function restart() {
 
     // update existing nodes (reflexive & selected visual states)
     circle.selectAll('circle')
-        .style('fill', function (d) { return (d === selected_node) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id); })
+        .style('fill', function (d) {
+            if (d === selected_node) {
+                return d3.rgb(colors(d.id))
+                    .brighter()
+                    .toString();
+            }
+            else {
+                return colors(d.id);
+            }
+        })
         .classed('reflexive', function (d) { return d.reflexive; });
 
     // add new nodes
@@ -250,8 +260,8 @@ function mousedown() {
     if (d3.event.ctrlKey || mousedown_node || mousedown_link) return;
 
     // insert new node at point
-    var point = d3.mouse(this),
-        node = { id: ++lastNodeId, reflexive: false };
+    let point = d3.mouse(this);
+    let node = { id: ++lastNodeId, reflexive: false };
     node.x = point[0];
     node.y = point[1];
     nodes.push(node);
@@ -293,7 +303,7 @@ function spliceLinksForNode(node) {
 }
 
 // only respond once per keydown
-var lastKeyDown = -1;
+let lastKeyDown = -1;
 
 function keydown() {
     d3.event.preventDefault();
