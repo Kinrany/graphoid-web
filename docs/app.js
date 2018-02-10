@@ -17,11 +17,6 @@ const edges = new vis.DataSet([
 // vis Network initialization
 const container = document.getElementById('network');
 
-const data = {
-    nodes: nodes,
-    edges: edges
-};
-
 const options = {
     interaction: {
         multiselect: true
@@ -31,4 +26,4 @@ const options = {
     }
 };
 
-const network = new vis.Network(container, data, options);
+const network = new vis.Network(container, {nodes, edges}, options);
