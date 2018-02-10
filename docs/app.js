@@ -57,7 +57,8 @@ const editor = cytoscape({
         name: 'circle'
     },
     boxSelectionEnabled: true,
-    selectionType: 'additive'
+    selectionType: 'additive',
+    wheelSensitivity: 0.3
 });
 
 // converts nodes ['a', 'b', 'c']
