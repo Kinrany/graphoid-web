@@ -10,7 +10,8 @@ const edges = [
     ['a', 'b'],
     ['b', 'c'],
     ['d', 'a'],
-    ['a', 'e']
+    ['a', 'e'],
+    ['d', 'd']
 ];
 
 const style = [
@@ -22,12 +23,25 @@ const style = [
         }
     },
     {
+        selector: 'node:selected',
+        style: {
+            'border-width': '2',
+            'border-color': '#000'
+        }
+    },
+    {
         selector: 'edge',
         style: {
             'width': 3,
             'line-color': '#ccc',
             'target-arrow-color': '#ccc',
             'target-arrow-shape': 'triangle'
+        }
+    },
+    {
+        selector: 'edge:selected',
+        style: {
+            'line-color': '#000'
         }
     }
 ];
@@ -38,7 +52,9 @@ const editor = cytoscape({
     style: style,
     layout: {
         name: 'circle'
-    }
+    },
+    boxSelectionEnabled: true,
+    selectionType: 'additive'
 });
 
 // converts nodes ['a', 'b', 'c']
