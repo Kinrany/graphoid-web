@@ -22,6 +22,13 @@ const data = {
     edges: edges
 };
 
-const options = {};
+const options = {
+    interaction: {
+        multiselect: true
+    },
+    manipulation: {
+        enabled: true
+    }
+};
 
 const network = new vis.Network(container, data, options);
