@@ -9,6 +9,7 @@ const nodes = [
 const edges = [
     ['1', '2'],
     ['2', '3'],
+    ['2', '3'],
     ['4', '1'],
     ['1', '5'],
     ['4', '4']
@@ -35,13 +36,15 @@ const style = [
             'width': 3,
             'line-color': '#ccc',
             'target-arrow-color': '#ccc',
-            'target-arrow-shape': 'triangle'
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'bezier'
         }
     },
     {
         selector: 'edge:selected',
         style: {
-            'line-color': '#000'
+            'line-color': '#000',
+            'target-arrow-color': '#000'
         }
     }
 ];
