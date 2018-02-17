@@ -1,3 +1,4 @@
+// describe initial graph
 const nodes = [
     '1',
     '2',
@@ -15,6 +16,7 @@ const edges = [
     ['4', '4']
 ];
 
+// cytoscape presentation settings
 const style = [
     {
         selector: 'node',
@@ -49,8 +51,10 @@ const style = [
     }
 ];
 
+// initialize cytoscape element
+const editorDOM = document.getElementById('editor');
 const editor = cytoscape({
-    container: document.getElementById('editor'),
+    container: editorDOM,
     elements: elements(nodes, edges),
     style: style,
     layout: {
@@ -59,6 +63,17 @@ const editor = cytoscape({
     boxSelectionEnabled: true,
     selectionType: 'additive',
     wheelSensitivity: 0.3
+});
+
+// when mouse is over the editor, focus
+editor.on('mouseover', () => editorDOM.focus());
+editorDOM.focus();
+
+// delete selected on keypress
+editorDOM.addEventListener('keydown', function onkeydown(event) {
+    if (['Delete', 'Backspace'].includes(event.key)) {
+        editor.remove(':selected');
+    }
 });
 
 // converts nodes ['a', 'b', 'c']
