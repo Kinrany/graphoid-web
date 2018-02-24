@@ -116,8 +116,10 @@ function elements(nodes, edges) {
 
 function delete_selected() {
     let selected = editor.$(':selected');
-    let d = selected.connectedEdges().union(selected);
-    undo_redo.do('delete', d);
+    if (!selected.empty()) {
+        let d = selected.connectedEdges().union(selected);
+        undo_redo.do('delete', d);
+    }
 }
 
 function delete_eles(eles) {
