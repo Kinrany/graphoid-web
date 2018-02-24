@@ -66,7 +66,7 @@ const editor = cytoscape({
 });
 
 // initialize undo extension
-let undo_redo = editor.undoRedo({});
+let undo_redo = editor.undoRedo({undoableDrag: false});
 undo_redo.action('delete', delete_eles, restore_eles);
 
 // buttons
