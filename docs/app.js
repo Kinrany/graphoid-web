@@ -66,7 +66,7 @@ const editor = cytoscape({
 });
 
 let undo_redo = editor.undoRedo({});
-undo_redo.action('delete', delete_selected, restore_deleted);
+undo_redo.action('delete', delete_eles, restore_eles);
 
 document.getElementById('undo').addEventListener('click', function() {
     undo_redo.undo();
@@ -82,7 +82,9 @@ editorDOM.focus();
 // delete selected on keypress
 editorDOM.addEventListener('keydown', function onkeydown(event) {
     if (['Delete', 'Backspace'].includes(event.key)) {
-        undo_redo.do('delete');
+        let selected = editor.$(':selected');
+        let d = selected.connectedEdges().union(selected);
+        undo_redo.do('delete', d);
     }
 });
 
@@ -109,17 +111,12 @@ function elements(nodes, edges) {
     return nodes.concat(edges);
 }
 
-let deleted_stack = [];
-
-function delete_selected() {
-    let selected = editor.$(':selected');
-    selected.connectedEdges().select();
-    selected = editor.$(':selected');
-    selected.remove();
-    deleted_stack.push(selected);
+function delete_eles(eles) {
+    eles.remove();
+    return eles;
 }
 
-function restore_deleted() {
-    let deleted = deleted_stack.pop();
-    deleted.restore();
+function restore_eles(eles) {
+    eles.restore();
+    return eles;
 }
