@@ -65,9 +65,11 @@ const editor = cytoscape({
     wheelSensitivity: 0.3
 });
 
+// initialize undo extension
 let undo_redo = editor.undoRedo({});
 undo_redo.action('delete', delete_eles, restore_eles);
 
+// buttons
 document.getElementById('button-delete').addEventListener('click', function () {
     delete_selected();
 });
