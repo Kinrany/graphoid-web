@@ -79,6 +79,10 @@ document.getElementById('button-undo').addEventListener('click', function () {
 document.getElementById('button-redo').addEventListener('click', function () {
     undo_redo.redo();
 });
+document.getElementById('button-save-png').addEventListener('click', function() {
+    let png = editor.png();
+    download(png, 'image.png', 'image/png');
+});
 
 // when mouse is over the editor, focus
 editor.on('mouseover', () => editorDOM.focus());
