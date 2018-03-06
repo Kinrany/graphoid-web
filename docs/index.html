@@ -53,7 +53,7 @@
             </thead>
             <tr v-for="(line, index) in matrix">
                 <td>
-                    <span style="text-align: center; vertical-align: middle; font-weight: bold">{{nodes[index].data.id}}</span>
+                    <b>{{nodes[index].data.id}}</b>
                 </td>
                 <td v-for="cell in line">
                     {{cell ? 'X' : ' '}}
