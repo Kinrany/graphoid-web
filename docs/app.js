@@ -76,6 +76,11 @@ Vue.component('my-editor', {
         save_png: function save_png() {
             let png = this.editor.png();
             download(png, 'image.png', 'image/png');
+        },
+        on_keydown: function on_keydown(event) {
+            if (['Delete', 'Backspace'].includes(event.key)) {
+                this.delete_selected();
+            }
         }
     },
     mounted: function () {
@@ -101,13 +106,6 @@ Vue.component('my-editor', {
         // when mouse is over the editor, focus
         this.editor.on('mouseover', () => editorDOM.focus());
         editorDOM.focus();
-
-        // delete selected on keypress
-        editorDOM.addEventListener('keydown', (event) => {
-            if (['Delete', 'Backspace'].includes(event.key)) {
-                this.delete_selected();
-            }
-        });
 
         function delete_eles(eles) {
             eles.remove();

@@ -30,7 +30,7 @@
 
 <template id="editor-template">
     <div>
-        <div id="editor" tabindex="-1"></div>
+        <div id="editor" tabindex="-1" v-on:keydown="on_keydown"></div>
         <div>
             <button v-on:click="delete_selected()">Удалить</button>
             <button v-on:click="undo()">Отменить</button>
