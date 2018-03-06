@@ -10,16 +10,8 @@
 <body>
     <div id="app">
         <div>
-            <h2>Шкатулка графов</h2>
-            <div id="editor" tabindex="-1"></div>
-            <div>
-                <button v-on:click="delete_selected()">Удалить</button>
-                <button v-on:click="undo()">Отменить</button>
-                <button v-on:click="redo()">Повторить</button>
-            </div>
-            <div>
-                <button v-on:click="save_png()">Сохранить изображение</button>
-            </div>
+            <h1>Шкатулка графов</h1>
+            <my-editor v-bind:elements="cytoscape_elements" ref="editor"></my-editor>
         </div>
         <div>
             <h2>Управление</h2>
@@ -36,6 +28,20 @@
         </div>
     </div>
 </body>
+
+<template id="editor-template">
+    <div>
+        <div id="editor" tabindex="-1"></div>
+        <div>
+            <button v-on:click="delete_selected()">Удалить</button>
+            <button v-on:click="undo()">Отменить</button>
+            <button v-on:click="redo()">Повторить</button>
+        </div>
+        <div>
+            <button v-on:click="save_png()">Сохранить изображение</button>
+        </div>
+    </div>
+</template>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.8/cytoscape.js"></script>

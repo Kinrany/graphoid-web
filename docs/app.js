@@ -50,34 +50,14 @@ const initial_edges = [
     ['4', '4']
 ];
 
-const app = new Vue({
-    el: '#app',
-    data: {
-        nodes: initial_nodes,
-        edges: initial_edges,
-        editor: null,
-        undo_redo: null
-    },
-    computed: {
-        cytoscape_elements: function () {
-            let nodes = this.nodes.map(function (n) {
-                return {
-                    data: { id: n }
-                };
-            });
-
-            let edges = this.edges.map(function ([from, to]) {
-                return {
-                    data: {
-                        id: '' + from + to,
-                        source: from,
-                        target: to
-                    }
-                }
-            });
-
-            return nodes.concat(edges);
-        }
+Vue.component('my-editor', {
+    template: '#editor-template',
+    props: ['elements'],
+    data: function () {
+        return {
+            editor: null,
+            undo_redo: null
+        };
     },
     methods: {
         undo: function undo() {
@@ -94,7 +74,7 @@ const app = new Vue({
             }
         },
         save_png: function save_png() {
-            let png = app.editor.png();
+            let png = this.editor.png();
             download(png, 'image.png', 'image/png');
         }
     },
@@ -104,7 +84,7 @@ const app = new Vue({
         // initialize cytoscape element
         this.editor = cytoscape({
             container: editorDOM,
-            elements: this.cytoscape_elements,
+            elements: this.elements,
             style: style,
             layout: {
                 name: 'circle'
@@ -137,6 +117,35 @@ const app = new Vue({
         function restore_eles(eles) {
             eles.restore();
             return eles;
+        }
+    }
+});
+
+const app = new Vue({
+    el: '#app',
+    data: {
+        nodes: initial_nodes,
+        edges: initial_edges
+    },
+    computed: {
+        cytoscape_elements: function () {
+            let nodes = this.nodes.map(function (n) {
+                return {
+                    data: { id: n }
+                };
+            });
+
+            let edges = this.edges.map(function ([from, to]) {
+                return {
+                    data: {
+                        id: '' + from + to,
+                        source: from,
+                        target: to
+                    }
+                }
+            });
+
+            return nodes.concat(edges);
         }
     }
 });
