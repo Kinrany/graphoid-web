@@ -75,25 +75,6 @@ Vue.component('my-editor', {
                 this.delete_selected();
             }
         },
-        initialize_editor: function initialize_editor() {
-            const editorDOM = this.$el.querySelector('#editor');
-
-            // initialize cytoscape element
-            this.editor = cytoscape({
-                container: editorDOM,
-                elements: [],
-                style: style,
-                layout: {
-                    name: 'circle'
-                },
-                boxSelectionEnabled: true,
-                selectionType: 'additive',
-                wheelSensitivity: 0.3
-            });
-
-            // when mouse is over the editor, focus
-            this.editor.on('mouseover', () => editorDOM.focus());
-        },
         load_elements() {
             this.editor.elements().remove();
             this.editor.add(this.elements);
@@ -101,7 +82,24 @@ Vue.component('my-editor', {
         }
     },
     mounted: function () {
-        this.initialize_editor();
+        const editorDOM = this.$el.querySelector('#editor');
+
+        // initialize cytoscape element
+        this.editor = cytoscape({
+            container: editorDOM,
+            elements: [],
+            style: style,
+            layout: {
+                name: 'circle'
+            },
+            boxSelectionEnabled: true,
+            selectionType: 'additive',
+            wheelSensitivity: 0.3
+        });
+
+        // when mouse is over the editor, focus
+        this.editor.on('mouseover', () => editorDOM.focus());
+
         this.load_elements();
     },
     watch: {
