@@ -111,7 +111,36 @@ Vue.component('my-editor', {
 
 Vue.component('my-text', {
     template: '#text-template',
-    props: ['nodes', 'edges']
+    props: ['nodes', 'edges'],
+    computed: {
+        matrix: function () {
+            try {
+                const n = this.nodes.length;
+
+                const id_to_index = new Map();
+                for (let i in this.nodes) {
+                    id_to_index[this.nodes[i].data.id] = i;
+                }
+
+                const m = [];
+                for (let i = 0; i < n; ++i) {
+                    m[i] = new Array(n);
+                }
+                for (let edge of this.edges) {
+                    let { source, target, id } = edge.data;
+                    sourceIndex = id_to_index[parseInt(source)];
+                    targetIndex = id_to_index[parseInt(target)];
+                    m[sourceIndex][targetIndex] = id;
+                }
+                return m;
+            }
+            catch (e) {
+                console.error('Failed to create a matrix');
+                console.error(e);
+                return [[]];
+            }
+        }
+    }
 })
 
 const app = new Vue({

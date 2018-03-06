@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>Шкатулка графов</title>
     <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
 </head>
 
 <body>
@@ -31,37 +32,37 @@
 <template id="editor-template">
     <div>
         <div id="editor" tabindex="-1" v-on:keydown="on_keydown"></div>
-        <div>
-            <button v-on:click="delete_selected()">Удалить</button>
-        </div>
-        <div>
-            <button v-on:click="save_png()">Сохранить изображение</button>
-        </div>
+        <p>
+            <button v-on:click="delete_selected()" class="pure-button">Удалить</button>
+        </p>
+        <p>
+            <button v-on:click="save_png()" class="pure-button">Сохранить изображение</button>
+        </p>
     </div>
 </template>
 
 <template id="text-template">
     <div>
-        <h2>Граф в виде текста</h2>
-        <div>
-            <h4>Вершины</h4>
-            <p>
-                <span v-for="node in nodes">
+        <h4>Матрица смежности</h4>
+        <table class="pure-table pure-table-striped">
+            <thead>
+                <th>из \ в</th>
+                <th v-for="node in nodes">
                     {{node.data.id}}
-                </span>
-            </p>
-            <p>
-                <button v-on:click="$emit('add-node')">Добавить вершину</button>
-            </p>
-        </div>
-        <div>
-            <h4>Рёбра</h4>
-            <ul>
-                <li v-for="edge in edges">
-                    {{edge.data.source}} -&gt; {{edge.data.target}}
-                </li>
-            </ul>
-        </div>
+                </th>
+            </thead>
+            <tr v-for="(line, index) in matrix">
+                <td>
+                    <span style="text-align: center; vertical-align: middle; font-weight: bold">{{nodes[index].data.id}}</span>
+                </td>
+                <td v-for="cell in line">
+                    {{cell ? 'X' : ' '}}
+                </td>
+            </tr>
+        </table>
+        <p>
+            <button v-on:click="$emit('add-node')" class="pure-button">Добавить вершину</button>
+        </p>
     </div>
 </template>
 
