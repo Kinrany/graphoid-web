@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Kinrany/graphoid-web#readme",
   "dependencies": {
-    "gojs": "^1.8.4"
+    "gojs": "^1.8.4",
+    "vue": "^2.5.13"
   }
 }

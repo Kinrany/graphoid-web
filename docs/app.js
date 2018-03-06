@@ -1,20 +1,44 @@
-// describe initial graph
-const nodes = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5'
-];
-
-const edges = [
-    ['1', '2'],
-    ['2', '3'],
-    ['2', '3'],
-    ['4', '1'],
-    ['1', '5'],
-    ['4', '4']
-];
+const app = new Vue({
+    el: '#app',
+    data: {
+        nodes: [
+            '1',
+            '2',
+            '3',
+            '4',
+            '5'
+        ],
+        edges: [
+            ['1', '2'],
+            ['2', '3'],
+            ['2', '3'],
+            ['4', '1'],
+            ['1', '5'],
+            ['4', '4']
+        ]
+    },
+    computed: {
+        cytoscape_elements: function() {
+            let nodes = this.nodes.map(function (n) {
+                return {
+                    data: { id: n }
+                };
+            });
+        
+            let edges = this.edges.map(function ([from, to]) {
+                return {
+                    data: {
+                        id: '' + from + to,
+                        source: from,
+                        target: to
+                    }
+                }
+            });
+        
+            return nodes.concat(edges);
+        }
+    }
+});
 
 // cytoscape presentation settings
 const style = [
@@ -55,7 +79,7 @@ const style = [
 const editorDOM = document.getElementById('editor');
 const editor = cytoscape({
     container: editorDOM,
-    elements: elements(nodes, edges),
+    elements: app.cytoscape_elements,
     style: style,
     layout: {
         name: 'circle'
@@ -66,7 +90,7 @@ const editor = cytoscape({
 });
 
 // initialize undo extension
-const undo_redo = editor.undoRedo({undoableDrag: false});
+const undo_redo = editor.undoRedo({ undoableDrag: false });
 undo_redo.action('delete', delete_eles, restore_eles);
 
 // buttons
@@ -79,7 +103,7 @@ document.getElementById('button-undo').addEventListener('click', function () {
 document.getElementById('button-redo').addEventListener('click', function () {
     undo_redo.redo();
 });
-document.getElementById('button-save-png').addEventListener('click', function() {
+document.getElementById('button-save-png').addEventListener('click', function () {
     let png = editor.png();
     download(png, 'image.png', 'image/png');
 });
@@ -94,29 +118,6 @@ editorDOM.addEventListener('keydown', function onkeydown(event) {
         delete_selected();
     }
 });
-
-// converts nodes ['a', 'b', 'c']
-// and edges [['a', 'b'], ['b', 'c']]
-// to Cytoscape's element format
-function elements(nodes, edges) {
-    nodes = nodes.map(function (n) {
-        return {
-            data: { id: n }
-        };
-    });
-
-    edges = edges.map(function ([from, to]) {
-        return {
-            data: {
-                id: '' + from + to,
-                source: from,
-                target: to
-            }
-        }
-    });
-
-    return nodes.concat(edges);
-}
 
 function delete_selected() {
     let selected = editor.$(':selected');
