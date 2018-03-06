@@ -1,45 +1,3 @@
-const app = new Vue({
-    el: '#app',
-    data: {
-        nodes: [
-            '1',
-            '2',
-            '3',
-            '4',
-            '5'
-        ],
-        edges: [
-            ['1', '2'],
-            ['2', '3'],
-            ['2', '3'],
-            ['4', '1'],
-            ['1', '5'],
-            ['4', '4']
-        ]
-    },
-    computed: {
-        cytoscape_elements: function() {
-            let nodes = this.nodes.map(function (n) {
-                return {
-                    data: { id: n }
-                };
-            });
-        
-            let edges = this.edges.map(function ([from, to]) {
-                return {
-                    data: {
-                        id: '' + from + to,
-                        source: from,
-                        target: to
-                    }
-                }
-            });
-        
-            return nodes.concat(edges);
-        }
-    }
-});
-
 // cytoscape presentation settings
 const style = [
     {
@@ -75,64 +33,110 @@ const style = [
     }
 ];
 
-// initialize cytoscape element
-const editorDOM = document.getElementById('editor');
-const editor = cytoscape({
-    container: editorDOM,
-    elements: app.cytoscape_elements,
-    style: style,
-    layout: {
-        name: 'circle'
+const initial_nodes = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5'
+];
+
+const initial_edges = [
+    ['1', '2'],
+    ['2', '3'],
+    ['2', '3'],
+    ['4', '1'],
+    ['1', '5'],
+    ['4', '4']
+];
+
+const app = new Vue({
+    el: '#app',
+    data: {
+        nodes: initial_nodes,
+        edges: initial_edges,
+        editor: null,
+        undo_redo: null
     },
-    boxSelectionEnabled: true,
-    selectionType: 'additive',
-    wheelSensitivity: 0.3
-});
+    computed: {
+        cytoscape_elements: function () {
+            let nodes = this.nodes.map(function (n) {
+                return {
+                    data: { id: n }
+                };
+            });
 
-// initialize undo extension
-const undo_redo = editor.undoRedo({ undoableDrag: false });
-undo_redo.action('delete', delete_eles, restore_eles);
+            let edges = this.edges.map(function ([from, to]) {
+                return {
+                    data: {
+                        id: '' + from + to,
+                        source: from,
+                        target: to
+                    }
+                }
+            });
 
-// buttons
-document.getElementById('button-delete').addEventListener('click', function () {
-    delete_selected();
-});
-document.getElementById('button-undo').addEventListener('click', function () {
-    undo_redo.undo();
-});
-document.getElementById('button-redo').addEventListener('click', function () {
-    undo_redo.redo();
-});
-document.getElementById('button-save-png').addEventListener('click', function () {
-    let png = editor.png();
-    download(png, 'image.png', 'image/png');
-});
+            return nodes.concat(edges);
+        }
+    },
+    methods: {
+        undo: function undo() {
+            this.undo_redo.undo();
+        },
+        redo: function redo() {
+            this.undo_redo.redo();
+        },
+        delete_selected: function delete_selected() {
+            let selected = this.editor.$(':selected');
+            if (!selected.empty()) {
+                let d = selected.connectedEdges().union(selected);
+                this.undo_redo.do('delete', d);
+            }
+        },
+        save_png: function save_png() {
+            let png = app.editor.png();
+            download(png, 'image.png', 'image/png');
+        }
+    },
+    mounted: function () {
+        const editorDOM = this.$el.querySelector('#editor');
 
-// when mouse is over the editor, focus
-editor.on('mouseover', () => editorDOM.focus());
-editorDOM.focus();
+        // initialize cytoscape element
+        this.editor = cytoscape({
+            container: editorDOM,
+            elements: this.cytoscape_elements,
+            style: style,
+            layout: {
+                name: 'circle'
+            },
+            boxSelectionEnabled: true,
+            selectionType: 'additive',
+            wheelSensitivity: 0.3
+        });
 
-// delete selected on keypress
-editorDOM.addEventListener('keydown', function onkeydown(event) {
-    if (['Delete', 'Backspace'].includes(event.key)) {
-        delete_selected();
+        // initialize undo extension
+        this.undo_redo = this.editor.undoRedo({ undoableDrag: false });
+        this.undo_redo.action('delete', delete_eles, restore_eles);
+
+        // when mouse is over the editor, focus
+        this.editor.on('mouseover', () => editorDOM.focus());
+        editorDOM.focus();
+
+        // delete selected on keypress
+        editorDOM.addEventListener('keydown', (event) => {
+            if (['Delete', 'Backspace'].includes(event.key)) {
+                this.delete_selected();
+            }
+        });
+
+        function delete_eles(eles) {
+            eles.remove();
+            return eles;
+        }
+
+        function restore_eles(eles) {
+            eles.restore();
+            return eles;
+        }
     }
 });
-
-function delete_selected() {
-    let selected = editor.$(':selected');
-    if (!selected.empty()) {
-        let d = selected.connectedEdges().union(selected);
-        undo_redo.do('delete', d);
-    }
-}
-
-function delete_eles(eles) {
-    eles.remove();
-    return eles;
-}
-
-function restore_eles(eles) {
-    eles.restore();
-    return eles;
-}
