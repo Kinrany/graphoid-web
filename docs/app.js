@@ -55,9 +55,19 @@ Vue.component('my-editor', {
     props: ['elements'],
     data: function () {
         return {
-            editor: null,
-            undo_redo: null
+            editor: null
         };
+    },
+    computed: {
+        undo_redo: function() {
+            if (this.editor) {
+                return this.editor.undoRedo({ undoableDrag: false });
+            }
+            else {
+                console.log('editor not initialized');
+                return null;
+            }
+        }
     },
     methods: {
         undo: function undo() {
@@ -70,7 +80,7 @@ Vue.component('my-editor', {
             let selected = this.editor.$(':selected');
             if (!selected.empty()) {
                 let d = selected.connectedEdges().union(selected);
-                this.undo_redo.do('delete', d);
+                this.undo_redo.do('remove', d);
             }
         },
         save_png: function save_png() {
@@ -81,41 +91,34 @@ Vue.component('my-editor', {
             if (['Delete', 'Backspace'].includes(event.key)) {
                 this.delete_selected();
             }
+        },
+        initialize_editor: function initialize_editor() {
+            const editorDOM = this.$el.querySelector('#editor');
+
+            // initialize cytoscape element
+            this.editor = cytoscape({
+                container: editorDOM,
+                elements: this.elements,
+                style: style,
+                layout: {
+                    name: 'circle'
+                },
+                boxSelectionEnabled: true,
+                selectionType: 'additive',
+                wheelSensitivity: 0.3
+            });
+
+            // when mouse is over the editor, focus
+            this.editor.on('mouseover', focus);
+            focus();
+
+            function focus() {
+                editorDOM.focus();
+            }
         }
     },
     mounted: function () {
-        const editorDOM = this.$el.querySelector('#editor');
-
-        // initialize cytoscape element
-        this.editor = cytoscape({
-            container: editorDOM,
-            elements: this.elements,
-            style: style,
-            layout: {
-                name: 'circle'
-            },
-            boxSelectionEnabled: true,
-            selectionType: 'additive',
-            wheelSensitivity: 0.3
-        });
-
-        // initialize undo extension
-        this.undo_redo = this.editor.undoRedo({ undoableDrag: false });
-        this.undo_redo.action('delete', delete_eles, restore_eles);
-
-        // when mouse is over the editor, focus
-        this.editor.on('mouseover', () => editorDOM.focus());
-        editorDOM.focus();
-
-        function delete_eles(eles) {
-            eles.remove();
-            return eles;
-        }
-
-        function restore_eles(eles) {
-            eles.restore();
-            return eles;
-        }
+        this.initialize_editor();
     }
 });
 
