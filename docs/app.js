@@ -33,13 +33,8 @@ const style = [
     }
 ];
 
-const initial_nodes = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5'
-];
+const initial_nodes = [1, 2, 3, 4, 5];
+const cy_nodes = initial_nodes.map(cy_node);
 
 const initial_edges = [
     ['1', '2'],
@@ -49,17 +44,21 @@ const initial_edges = [
     ['1', '5'],
     ['4', '4']
 ];
+const cy_edges = initial_edges.map(cy_edge);
 
 Vue.component('my-editor', {
     template: '#editor-template',
-    props: ['elements'],
+    props: ['nodes', 'edges'],
     data: function () {
         return {
             editor: null
         };
     },
     computed: {
-        undo_redo: function() {
+        elements: function() {
+            return Array.concat(this.nodes, this.edges);
+        },
+        undo_redo: function () {
             if (this.editor) {
                 return this.editor.undoRedo({ undoableDrag: false });
             }
@@ -98,7 +97,7 @@ Vue.component('my-editor', {
             // initialize cytoscape element
             this.editor = cytoscape({
                 container: editorDOM,
-                elements: this.elements,
+                elements: [],
                 style: style,
                 layout: {
                     name: 'circle'
@@ -109,16 +108,22 @@ Vue.component('my-editor', {
             });
 
             // when mouse is over the editor, focus
-            this.editor.on('mouseover', focus);
-            focus();
-
-            function focus() {
-                editorDOM.focus();
-            }
+            this.editor.on('mouseover', () => editorDOM.focus());
+        },
+        load_elements() {
+            this.editor.elements().remove();
+            this.editor.add(this.elements);
+            this.editor.layout({name: 'circle'}).run();
         }
     },
     mounted: function () {
         this.initialize_editor();
+        this.load_elements();
+    },
+    watch: {
+        elements: function(newVal, oldVal) {
+           this.load_elements();
+        }
     }
 });
 
@@ -130,34 +135,30 @@ Vue.component('my-text', {
 const app = new Vue({
     el: '#app',
     data: {
-        nodes: initial_nodes,
-        edges: initial_edges
-    },
-    computed: {
-        cytoscape_elements: function () {
-            let nodes = this.nodes.map(function (n) {
-                return {
-                    data: { id: n }
-                };
-            });
-
-            let edges = this.edges.map(function ([from, to]) {
-                return {
-                    data: {
-                        id: '' + from + to,
-                        source: from,
-                        target: to
-                    }
-                }
-            });
-
-            return nodes.concat(edges);
-        }
+        nodes: cy_nodes,
+        edges: cy_edges
     },
     methods: {
-        on_add_node: function(event) {
+        on_add_node: function (event) {
             let id = this.nodes.length + 1;
-            this.nodes.push(id.toString());
+            this.nodes.push(cy_node(id));
         }
     }
 });
+
+function cy_node(id) {
+    return {
+        data: { id: id },
+        position: { x: -1000, y: -1000 }
+    };
+}
+
+function cy_edge([s, t]) {
+    return {
+        data: {
+            id: `(${s}, ${t})`,
+            source: s,
+            target: t
+        }
+    };
+}

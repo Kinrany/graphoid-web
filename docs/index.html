@@ -10,7 +10,7 @@
 <body>
     <div id="app">
         <h1>Шкатулка графов</h1>
-        <my-editor v-bind:elements="cytoscape_elements"></my-editor>
+        <my-editor v-bind:nodes="nodes" v-bind:edges="edges"></my-editor>
         <my-text v-bind:nodes="nodes" v-bind:edges="edges" v-on:add-node="on_add_node"></my-text>
         <div>
             <h2>Управление</h2>
@@ -49,7 +49,7 @@
             <h4>Вершины</h4>
             <p>
                 <span v-for="node in nodes">
-                    {{node}}
+                    {{node.data.id}}
                 </span>
             </p>
             <p>
@@ -59,8 +59,8 @@
         <div>
             <h4>Рёбра</h4>
             <ul>
-                <li v-for="[source, target] in edges">
-                    {{source}} -&gt; {{target}}
+                <li v-for="edge in edges">
+                    {{edge.data.source}} -&gt; {{edge.data.target}}
                 </li>
             </ul>
         </div>
