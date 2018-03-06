@@ -57,31 +57,13 @@ Vue.component('my-editor', {
     computed: {
         elements: function () {
             return Array.concat(this.nodes, this.edges);
-        },
-        undo_redo: function () {
-            if (this.editor) {
-                return this.editor.undoRedo({ undoableDrag: false });
-            }
-            else {
-                console.log('editor not initialized');
-                return null;
-            }
         }
     },
     methods: {
-        undo: function undo() {
-            this.undo_redo.undo();
-        },
-        redo: function redo() {
-            this.undo_redo.redo();
-        },
         delete_selected: function delete_selected() {
             let selected = this.editor.$(':selected');
             if (selected.empty()) return;
 
-            //let d = selected.connectedEdges().union(selected);
-            //this.undo_redo.do('remove', d);
-            //console.log(d.filter('node').map(ele => ele.id()));
             let edges = selected.filter('edge').map(ele => ele.id());
             let nodes = selected.filter('node').map(ele => ele.id());
             this.$emit('deleted-elements', { edges, nodes });

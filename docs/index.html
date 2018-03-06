@@ -33,8 +33,6 @@
         <div id="editor" tabindex="-1" v-on:keydown="on_keydown"></div>
         <div>
             <button v-on:click="delete_selected()">Удалить</button>
-            <button v-on:click="undo()">Отменить</button>
-            <button v-on:click="redo()">Повторить</button>
         </div>
         <div>
             <button v-on:click="save_png()">Сохранить изображение</button>
@@ -70,7 +68,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.8/cytoscape.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
-<script src="cytoscape-undo-redo.js"></script>
 <script src="app.js"></script>
 
 </html>
