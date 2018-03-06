@@ -10,7 +10,7 @@
 <body>
     <div id="app">
         <h1>Шкатулка графов</h1>
-        <my-editor v-bind:nodes="nodes" v-bind:edges="edges"></my-editor>
+        <my-editor v-bind:nodes="nodes" v-bind:edges="edges" v-on:deleted-elements="on_deleted_elements"></my-editor>
         <my-text v-bind:nodes="nodes" v-bind:edges="edges" v-on:add-node="on_add_node"></my-text>
         <div>
             <h2>Управление</h2>

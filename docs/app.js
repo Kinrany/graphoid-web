@@ -55,7 +55,7 @@ Vue.component('my-editor', {
         };
     },
     computed: {
-        elements: function() {
+        elements: function () {
             return Array.concat(this.nodes, this.edges);
         },
         undo_redo: function () {
@@ -77,10 +77,14 @@ Vue.component('my-editor', {
         },
         delete_selected: function delete_selected() {
             let selected = this.editor.$(':selected');
-            if (!selected.empty()) {
-                let d = selected.connectedEdges().union(selected);
-                this.undo_redo.do('remove', d);
-            }
+            if (selected.empty()) return;
+
+            //let d = selected.connectedEdges().union(selected);
+            //this.undo_redo.do('remove', d);
+            //console.log(d.filter('node').map(ele => ele.id()));
+            let edges = selected.filter('edge').map(ele => ele.id());
+            let nodes = selected.filter('node').map(ele => ele.id());
+            this.$emit('deleted-elements', { edges, nodes });
         },
         save_png: function save_png() {
             let png = this.editor.png();
@@ -113,7 +117,7 @@ Vue.component('my-editor', {
         load_elements() {
             this.editor.elements().remove();
             this.editor.add(this.elements);
-            this.editor.layout({name: 'circle'}).run();
+            this.editor.layout({ name: 'circle' }).run();
         }
     },
     mounted: function () {
@@ -121,8 +125,8 @@ Vue.component('my-editor', {
         this.load_elements();
     },
     watch: {
-        elements: function(newVal, oldVal) {
-           this.load_elements();
+        elements: function (newVal, oldVal) {
+            this.load_elements();
         }
     }
 });
@@ -142,6 +146,16 @@ const app = new Vue({
         on_add_node: function (event) {
             let id = this.nodes.length + 1;
             this.nodes.push(cy_node(id));
+        },
+        on_deleted_elements: function ({ nodes, edges }) {
+            let new_nodes = this.nodes
+                .filter(node => !nodes.includes(node.data.id));
+            let new_edges = this.edges
+                .filter(edge => !edges.includes(edge.data.id))
+                .filter(edge => !nodes.includes(edge.data.source))
+                .filter(edge => !nodes.includes(edge.data.target));
+            this.nodes = new_nodes;
+            this.edges = new_edges;
         }
     }
 });
