@@ -9,10 +9,9 @@
 
 <body>
     <div id="app">
-        <div>
-            <h1>Шкатулка графов</h1>
-            <my-editor v-bind:elements="cytoscape_elements"></my-editor>
-        </div>
+        <h1>Шкатулка графов</h1>
+        <my-editor v-bind:elements="cytoscape_elements"></my-editor>
+        <my-text v-bind:nodes="nodes" v-bind:edges="edges" v-on:add-node="on_add_node"></my-text>
         <div>
             <h2>Управление</h2>
             <p>Клик левой кнопкой &mdash; выделить вершину или ребро.</p>
@@ -39,6 +38,31 @@
         </div>
         <div>
             <button v-on:click="save_png()">Сохранить изображение</button>
+        </div>
+    </div>
+</template>
+
+<template id="text-template">
+    <div>
+        <h2>Граф в виде текста</h2>
+        <div>
+            <h4>Вершины</h4>
+            <p>
+                <span v-for="node in nodes">
+                    {{node}}
+                </span>
+            </p>
+            <p>
+                <button v-on:click="$emit('add-node')">Добавить вершину</button>
+            </p>
+        </div>
+        <div>
+            <h4>Рёбра</h4>
+            <ul>
+                <li v-for="[source, target] in edges">
+                    {{source}} -&gt; {{target}}
+                </li>
+            </ul>
         </div>
     </div>
 </template>

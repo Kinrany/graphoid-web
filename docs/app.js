@@ -121,6 +121,11 @@ Vue.component('my-editor', {
     }
 });
 
+Vue.component('my-text', {
+    template: '#text-template',
+    props: ['nodes', 'edges']
+})
+
 const app = new Vue({
     el: '#app',
     data: {
@@ -146,6 +151,12 @@ const app = new Vue({
             });
 
             return nodes.concat(edges);
+        }
+    },
+    methods: {
+        on_add_node: function(event) {
+            let id = this.nodes.length + 1;
+            this.nodes.push(id.toString());
         }
     }
 });
