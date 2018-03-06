@@ -4,23 +4,24 @@
 <head>
     <meta charset="utf-8">
     <title>Шкатулка графов</title>
-    <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
-    <div id="app">
-        <h1>Шкатулка графов</h1>
-        <my-editor v-bind:nodes="nodes" v-bind:edges="edges" v-on:deleted-elements="on_deleted_elements"></my-editor>
-        <my-text v-bind:nodes="nodes" v-bind:edges="edges" v-on:add-node="on_add_node"></my-text>
-        <div>
+    <div id="app" class="pure-g">
+        <h1 class="pure-u-1">Шкатулка графов</h1>
+        <my-editor :nodes="nodes" :edges="edges" @deleted-elements="on_deleted_elements" class="pure-u-1 pure-u-xl-1-2"></my-editor>
+        <my-text :nodes="nodes" :edges="edges" @add-node="on_add_node" class="pure-u-1 pure-u-xl-1-2"></my-text>
+        <div class="pure-u-1">
             <h2>Управление</h2>
             <p>Клик левой кнопкой &mdash; выделить вершину или ребро.</p>
             <p>Перетаскивание левой кнопкой &mdash; сдвинуть вершины или весь граф.</p>
             <p>Колесо мыши &mdash; приблизить или отдалить.</p>
             <p>Delete или Backspace &mdash; удалить выделенные вершины и рёбра.</p>
         </div>
-        <div>
+        <div class="pure-u-1">
             <h2>Исходный код</h2>
             <p>
                 <a href="https://github.com/kinrany/graphoid-web">github.com/kinrany/graphoid-web</a>
@@ -31,12 +32,12 @@
 
 <template id="editor-template">
     <div>
-        <div id="editor" tabindex="-1" v-on:keydown="on_keydown"></div>
+        <div id="editor" tabindex="-1" @keydown="on_keydown"></div>
         <p>
-            <button v-on:click="delete_selected()" class="pure-button">Удалить</button>
+            <button @click="delete_selected()" class="pure-button">Удалить</button>
         </p>
         <p>
-            <button v-on:click="save_png()" class="pure-button">Сохранить изображение</button>
+            <button @click="save_png()" class="pure-button">Сохранить изображение</button>
         </p>
     </div>
 </template>
@@ -61,7 +62,7 @@
             </tr>
         </table>
         <p>
-            <button v-on:click="$emit('add-node')" class="pure-button">Добавить вершину</button>
+            <button @click="$emit('add-node')" class="pure-button">Добавить вершину</button>
         </p>
     </div>
 </template>
