@@ -54,7 +54,7 @@ Vue.component('my-editor', {
     },
     computed: {
         elements: function () {
-            return Array.concat(this.nodes, this.edges);
+            return this.nodes.concat(this.edges);
         }
     },
     methods: {
