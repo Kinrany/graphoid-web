@@ -1,6 +1,9 @@
 Vue.component('my-text', {
     template: '#text-template',
     props: ['graph'],
+    data: function () {
+        return { text: "" }
+    },
     computed: {
         nodes: function () {
             return this.graph.nodes;
@@ -36,6 +39,11 @@ Vue.component('my-text', {
                 console.error(e);
                 return [[]];
             }
+        }
+    },
+    methods: {
+        on_load: function () {
+            this.$emit('load', this.text);
         }
     }
 });

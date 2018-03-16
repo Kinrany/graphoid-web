@@ -56,6 +56,9 @@ const app = new Vue({
         on_deleted_elements: function ({ nodes, edges }) {
             delete_edges.apply(this.graph, [edges]);
             delete_nodes.apply(this.graph, [nodes]);
+        },
+        on_load: function (text) {
+            console.log(text);
         }
     }
 });
