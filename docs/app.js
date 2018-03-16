@@ -34,17 +34,15 @@ const style = [
 ];
 
 const initial_nodes = [1, 2, 3, 4, 5];
-const cy_nodes = initial_nodes.map(cy_node);
 
 const initial_edges = [
-    ['1', '2'],
-    ['2', '3'],
-    ['2', '3'],
-    ['4', '1'],
-    ['1', '5'],
-    ['4', '4']
+    [1, 2],
+    [2, 3],
+    [2, 3],
+    [4, 1],
+    [1, 5],
+    [4, 4]
 ];
-const cy_edges = initial_edges.map(cy_edge);
 
 Vue.component('my-editor', {
     template: '#editor-template',
@@ -121,8 +119,8 @@ Vue.component('my-text', {
 const app = new Vue({
     el: '#app',
     data: {
-        nodes: cy_nodes,
-        edges: cy_edges
+        nodes: initial_nodes.map(cy_node),
+        edges: initial_edges.map(cy_edge)
     },
     methods: {
         on_add_node: function (event) {
@@ -144,7 +142,7 @@ const app = new Vue({
 
 function cy_node(id) {
     return {
-        data: { id: id },
+        data: { id: id.toString() },
         position: { x: -1000, y: -1000 }
     };
 }
@@ -153,8 +151,8 @@ function cy_edge([s, t]) {
     return {
         data: {
             id: `(${s}, ${t})`,
-            source: s,
-            target: t
+            source: s.toString(),
+            target: t.toString()
         }
     };
 }
