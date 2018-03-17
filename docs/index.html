@@ -32,36 +32,6 @@
     </div>
 </body>
 
-<template id="text-template">
-    <div>
-        <h3>Текстовое представление</h3>
-        <p>
-            <button @click="$emit('add-node')" class="pure-button">Добавить вершину</button>
-        </p>
-        <h4>Матрица смежности</h4>
-        <table class="pure-table pure-table-striped">
-            <thead>
-                <th>из \ в</th>
-                <th v-for="node in nodes">
-                    {{node.data.id}}
-                </th>
-            </thead>
-            <tr v-for="(line, index) in matrix">
-                <td>
-                    <b>{{nodes[index].data.id}}</b>
-                </td>
-                <td v-for="cell in line">
-                    {{cell ? 'X' : ' '}}
-                </td>
-            </tr>
-        </table>
-        <textarea v-model="text" class="pure-input-1"></textarea>
-        <p>
-            <button @click="on_load" class="pure-button">Загрузить</button>
-        </p>
-    </div>
-</template>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1.3.4/src/httpVueLoader.min.js"></script>
@@ -69,7 +39,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
 <script src="monkeypatch.js"></script>
 <script src="cygraph.js"></script>
-<script src="components/text.js"></script>
 <script src="app.js"></script>
 
 </html>
