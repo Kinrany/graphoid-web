@@ -60,5 +60,8 @@ const app = new Vue({
         on_load: function (text) {
             console.log(text);
         }
+    },
+    components: {
+        'my-editor': httpVueLoader('components/editor.vue')
     }
 });

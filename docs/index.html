@@ -32,18 +32,6 @@
     </div>
 </body>
 
-<template id="editor-template">
-    <div>
-        <div id="editor" tabindex="-1" @keydown="on_keydown"></div>
-        <p>
-            <button @click="delete_selected()" class="pure-button">Удалить</button>
-        </p>
-        <p>
-            <button @click="save_png()" class="pure-button">Сохранить изображение</button>
-        </p>
-    </div>
-</template>
-
 <template id="text-template">
     <div>
         <h3>Текстовое представление</h3>
@@ -76,11 +64,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1.3.4/src/httpVueLoader.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.8/cytoscape.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
 <script src="monkeypatch.js"></script>
 <script src="cygraph.js"></script>
-<script src="components/editor.js"></script>
 <script src="components/text.js"></script>
 <script src="app.js"></script>
 
