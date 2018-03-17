@@ -46,6 +46,10 @@
 
 <template id="text-template">
     <div>
+        <h3>Текстовое представление</h3>
+        <p>
+            <button @click="$emit('add-node')" class="pure-button">Добавить вершину</button>
+        </p>
         <h4>Матрица смежности</h4>
         <table class="pure-table pure-table-striped">
             <thead>
@@ -63,9 +67,6 @@
                 </td>
             </tr>
         </table>
-        <p>
-            <button @click="$emit('add-node')" class="pure-button">Добавить вершину</button>
-        </p>
     </div>
 </template>
 
