@@ -40,7 +40,7 @@ module.exports = {
       let local_graph_copy = _.cloneDeep(this.graph);
 
       this.editor.elements().remove();
-      this.editor.add(get_elements.apply(local_graph_copy));
+      this.editor.add(CyGraphFormat.get_elements.apply(local_graph_copy));
       this.editor.layout({ name: "circle" }).run();
     }
   },
