@@ -33,15 +33,12 @@ function add_node() {
 }
 
 function delete_nodes(node_id_list) {
-    let new_nodes = this.nodes
+    this.nodes = this.nodes
         .filter(node => !node_id_list.includes(node.data.id));
     
-    let new_edges = this.edges
+    this.edges = this.edges
         .filter(edge => !node_id_list.includes(edge.data.source))
         .filter(edge => !node_id_list.includes(edge.data.target));
-    
-    this.nodes = new_nodes;
-    this.edges = new_edges;
 }
 
 function delete_edges(edge_id_list) {
