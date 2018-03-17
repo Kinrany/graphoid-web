@@ -32,7 +32,7 @@ var GraphFormat = {
     Edge([s, t]) {
         return {
             data: {
-                id: `(${s}, ${t})`,
+                id: `(${s}-${t})`,
                 source: s,
                 target: t
             }
