@@ -52,8 +52,12 @@ Vue.component('my-editor', {
         this.load_elements();
     },
     watch: {
-        elements: function (newVal, oldVal) {
-            this.load_elements();
+        graph: {
+            deep: true,
+            handler: function () {
+                this.load_elements();
+            },
         }
+
     }
 });
