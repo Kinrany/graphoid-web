@@ -58,13 +58,8 @@ const app = new Vue({
             GraphFormat.delete_edges.call(this.graph, edges);
             GraphFormat.delete_nodes.call(this.graph, nodes);
         },
-        on_load: function (text) {
-            try {
-                this.graph = TextFormat.to_graph(text);
-            }
-            catch (e) {
-                console.error(e);
-            }
+        on_load: function (new_graph) {
+            this.graph = new_graph;
         }
     },
     components: {

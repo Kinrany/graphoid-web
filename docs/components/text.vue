@@ -25,7 +25,12 @@ module.exports = {
   },
   methods: {
     save() {
-      this.$emit("load", this.text);
+      try {
+        let new_graph = TextFormat.to_graph(this.text);
+        this.$emit("load", new_graph);
+      } catch (e) {
+        console.error(e);
+      }
     },
     update_text() {
       this.text = TextFormat.from_graph(this.graph);
