@@ -1,10 +1,5 @@
 <template>
     <div>
-        <h3>Текстовое представление</h3>
-        <p>
-            <button @click="$emit('add-node')" class="pure-button">Добавить вершину</button>
-        </p>
-        <h4>Матрица смежности</h4>
         <table class="pure-table pure-table-striped">
             <thead>
                 <th>из \ в</th>
@@ -73,7 +68,6 @@ module.exports = {
       return this.graph.nodes[index].id;
     },
     toggle_edge(row, col) {
-      console.log("delete edge");
       let source = this.index_to_id(row);
       let target = this.index_to_id(col);
       if (this.matrix[row][col]) {
