@@ -1,78 +1,45 @@
 <template>
-    <div>
-        <h3>Текстовое представление</h3>
-        <p>
-            <button @click="$emit('add-node')" class="pure-button">Добавить вершину</button>
-        </p>
-        <h4>Матрица смежности</h4>
-        <table class="pure-table pure-table-striped">
-            <thead>
-                <th>из \ в</th>
-                <th v-for="node in nodes" :key="node.id">
-                    {{node.id}}
-                </th>
-            </thead>
-            <tr v-for="(line, index) in matrix" :key="index">
-                <td>
-                    <b>{{nodes[index].id}}</b>
-                </td>
-                <td v-for="cell in line" :key="cell">
-                    {{cell ? 'X' : ' '}}
-                </td>
-            </tr>
-        </table>
-        <textarea v-model="text" class="pure-input-1"></textarea>
-        <p>
-            <button @click="on_load" class="pure-button">Загрузить</button>
-        </p>
-    </div>
+  <div class="pure-g">
+    <textarea v-model="text" class="pure-input-1" :rows="rows" :cols="cols"></textarea>
+    <p class="pure-u-1">
+        <button @click="save" class="pure-button">Загрузить</button>
+    </p>
+  </div>
 </template>
 
 <script>
 module.exports = {
   props: ["graph"],
   data: function() {
-    return { text: "" };
+    return {
+      text: ""
+    };
   },
   computed: {
-    nodes: function() {
-      return this.graph.nodes;
+    rows() {
+      return this.graph.nodes.length + 1;
     },
-    edges: function() {
-      return this.graph.edges;
-    },
-    matrix: function() {
-      try {
-        const n = this.nodes.length;
-
-        const id_to_column = new Map();
-        for (let col = 0; col < n; ++col) {
-          let node = this.nodes[col];
-          id_to_column[node.id] = col;
-        }
-
-        const m = [];
-        for (let i = 0; i < n; ++i) {
-          m[i] = new Array(n);
-        }
-        for (let edge of this.edges) {
-          let { source, target, id } = edge;
-          let sourceColumn = id_to_column[source];
-          let targetColumn = id_to_column[target];
-          m[sourceColumn][targetColumn] = id;
-        }
-
-        return m;
-      } catch (e) {
-        console.error("Failed to create a matrix");
-        console.error(e);
-        return [[]];
-      }
+    cols() {
+      return this.graph.nodes.length;
     }
   },
   methods: {
-    on_load: function() {
+    save() {
       this.$emit("load", this.text);
+    },
+    update_text() {
+      this.text = TextFormat.from_graph(this.graph);
+    }
+  },
+  mounted() {
+    this.update_text();
+  },
+  watch: {
+    graph: {
+      handler: function(val, oldVal) {
+        this.update_text();
+      },
+      deep: true
     }
   }
 };

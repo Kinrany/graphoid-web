@@ -59,11 +59,17 @@ const app = new Vue({
             GraphFormat.delete_nodes.call(this.graph, nodes);
         },
         on_load: function (text) {
-            console.log(text);
+            try {
+                this.graph = TextFormat.to_graph(text);
+            }
+            catch (e) {
+                console.error(e);
+            }
         }
     },
     components: {
         'my-editor': httpVueLoader('components/editor.vue'),
+        'my-text-editor': httpVueLoader('components/text-editor.vue'),
         'my-text': httpVueLoader('components/text.vue')
     }
 });

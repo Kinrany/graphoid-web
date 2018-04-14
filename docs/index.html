@@ -18,8 +18,13 @@
 <body>
     <div id="app" class="pure-g">
         <h1 class="pure-u-1">Шкатулка графов</h1>
-        <my-editor :graph="graph" @deleted-elements="on_deleted_elements" class="pure-u-1 pure-u-xl-1-2"></my-editor>
-        <my-text :graph="graph" @add-node="on_add_node" @load="on_load" class="pure-u-1 pure-u-xl-1-2"></my-text>
+        <div class="pure-u-1 pure-u-xl-1-2">
+            <my-editor :graph="graph" @deleted-elements="on_deleted_elements"></my-editor>
+        </div>
+        <div class="pure-u-1 pure-u-xl-1-2">
+            <my-text-editor :graph="graph" @add-node="on_add_node"></my-text-editor>
+            <my-text :graph="graph" @load="on_load"></my-text>
+        </div>
     </div>
     <div class="pure-g">
         <div class="pure-u-1">
@@ -41,6 +46,7 @@
 <script src="monkeypatch.js"></script>
 <script src="formats/cygraph.js"></script>
 <script src="formats/graph.js"></script>
+<script src="formats/text.js"></script>
 <script src="app.js"></script>
 
 </html>
