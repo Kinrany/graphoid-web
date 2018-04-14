@@ -47,15 +47,24 @@ const initial_edges = [
 const app = new Vue({
     el: '#app',
     data: {
-        graph: CyGraph(initial_nodes, initial_edges)
+        // TODO: use GraphFormat in app and props
+        graph: GraphFormat.Graph(initial_nodes, initial_edges)
     },
     methods: {
         on_add_node: function (event) {
-            add_node.apply(this.graph);
+            GraphFormat.add_node.call(this.graph);
         },
         on_deleted_elements: function ({ nodes, edges }) {
-            delete_edges.apply(this.graph, [edges]);
-            delete_nodes.apply(this.graph, [nodes]);
+            GraphFormat.delete_edges.call(this.graph, edges);
+            GraphFormat.delete_nodes.call(this.graph, nodes);
+        },
+        on_load: function (new_graph) {
+            this.graph = new_graph;
         }
+    },
+    components: {
+        'my-editor': httpVueLoader('components/editor.vue'),
+        'my-text-editor': httpVueLoader('components/text-editor.vue'),
+        'my-text': httpVueLoader('components/text.vue')
     }
 });
