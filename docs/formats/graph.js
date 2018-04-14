@@ -56,6 +56,12 @@ var GraphFormat = {
         this.nodes.push(node);
     },
 
+    // this: GraphFormat.Graph, source: string, target: string
+    add_edge(source, target) {
+        let edge = GraphFormat.Edge([source, target]);
+        this.edges.push(edge);
+    },
+
     // this: GraphFormat.Graph, node_id_list: string[]
     delete_nodes(node_id_list) {
         this.nodes = this.nodes

@@ -54,6 +54,9 @@ const app = new Vue({
         on_add_node: function (event) {
             GraphFormat.add_node.call(this.graph);
         },
+        on_add_edge: function ({source, target}) {
+            GraphFormat.add_edge.call(this.graph, source, target);
+        },
         on_deleted_elements: function ({ nodes, edges }) {
             GraphFormat.delete_edges.call(this.graph, edges);
             GraphFormat.delete_nodes.call(this.graph, nodes);
@@ -63,8 +66,8 @@ const app = new Vue({
         }
     },
     components: {
-        'my-editor': httpVueLoader('components/visual-editor.vue'),
-        'my-text-editor': httpVueLoader('components/matrix-editor.vue'),
-        'my-text': httpVueLoader('components/text-editor.vue')
+        'visual-editor': httpVueLoader('components/visual-editor.vue'),
+        'matrix-editor': httpVueLoader('components/matrix-editor.vue'),
+        'text-editor': httpVueLoader('components/text-editor.vue')
     }
 });
