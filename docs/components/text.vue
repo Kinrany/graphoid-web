@@ -9,12 +9,12 @@
             <thead>
                 <th>из \ в</th>
                 <th v-for="node in nodes">
-                    {{node.data.id}}
+                    {{node.id}}
                 </th>
             </thead>
             <tr v-for="(line, index) in matrix">
                 <td>
-                    <b>{{nodes[index].data.id}}</b>
+                    <b>{{nodes[index].id}}</b>
                 </td>
                 <td v-for="cell in line">
                     {{cell ? 'X' : ' '}}
@@ -48,7 +48,7 @@ module.exports = {
         const id_to_column = new Map();
         for (let col = 0; col < n; ++col) {
           let node = this.nodes[col];
-          id_to_column[node.data.id] = col;
+          id_to_column[node.id] = col;
         }
 
         const m = [];
@@ -56,7 +56,7 @@ module.exports = {
           m[i] = new Array(n);
         }
         for (let edge of this.edges) {
-          let { source, target, id } = edge.data;
+          let { source, target, id } = edge;
           let sourceColumn = id_to_column[source];
           let targetColumn = id_to_column[target];
           m[sourceColumn][targetColumn] = id;

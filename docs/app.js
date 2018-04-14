@@ -48,15 +48,15 @@ const app = new Vue({
     el: '#app',
     data: {
         // TODO: use GraphFormat in app and props
-        graph: CyGraphFormat.Graph(initial_nodes, initial_edges)
+        graph: GraphFormat.Graph(initial_nodes, initial_edges)
     },
     methods: {
         on_add_node: function (event) {
-            CyGraphFormat.add_node.call(this.graph);
+            GraphFormat.add_node.call(this.graph);
         },
         on_deleted_elements: function ({ nodes, edges }) {
-            CyGraphFormat.delete_edges.call(this.graph, edges);
-            CyGraphFormat.delete_nodes.call(this.graph, nodes);
+            GraphFormat.delete_edges.call(this.graph, edges);
+            GraphFormat.delete_nodes.call(this.graph, nodes);
         },
         on_load: function (text) {
             console.log(text);

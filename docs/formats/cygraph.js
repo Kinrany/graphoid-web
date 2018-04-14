@@ -36,6 +36,8 @@
 */
 
 var CyGraphFormat = {
+
+    // id: number || string
     Node(id) {
         return {
             data: {
@@ -46,6 +48,7 @@ var CyGraphFormat = {
         };
     },
 
+    // s: number || string, t: number || string
     Edge([s, t]) {
         return {
             data: {
@@ -56,6 +59,7 @@ var CyGraphFormat = {
         };
     },
 
+    // nodes: Array<number>, edges: Array<[number, number]>
     Graph(nodes, edges) {
         return {
             last_node_index: nodes.max(),
@@ -64,12 +68,14 @@ var CyGraphFormat = {
         };
     },
 
+    // this: CyGraphFormat.Graph
     add_node() {
         this.last_node_index += 1;
         let node = CyGraphFormat.Node(this.last_node_index);
         this.nodes.push(node);
     },
 
+    // this: CyGraphFormat.Graph, node_id_list: string[]
     delete_nodes(node_id_list) {
         this.nodes = this.nodes
             .filter(node => !node_id_list.includes(node.data.id));
@@ -79,12 +85,21 @@ var CyGraphFormat = {
             .filter(edge => !node_id_list.includes(edge.data.target));
     },
 
+    // this: CyGraphFormat.Graph, edge_id_list: string[]
     delete_edges(edge_id_list) {
         this.edges = this.edges
             .filter(edge => !edge_id_list.includes(edge.data.id));
     },
 
+    // this: CyGraphFormat.Graph
     get_elements() {
         return this.nodes.concat(this.edges);
+    },
+
+    // graph: GraphFormat.Graph
+    from_graph(graph) {
+        const nodes = graph.nodes.map(({id}) => id);
+        const edges = graph.edges.map(({source, target}) => [source, target]);
+        return CyGraphFormat.Graph(nodes, edges);
     }
 };

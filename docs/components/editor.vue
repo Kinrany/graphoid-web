@@ -37,7 +37,7 @@ module.exports = {
       }
     },
     load_elements() {
-      let local_graph_copy = _.cloneDeep(this.graph);
+      let local_graph_copy = CyGraphFormat.from_graph(this.graph);
 
       this.editor.elements().remove();
       this.editor.add(CyGraphFormat.get_elements.apply(local_graph_copy));
