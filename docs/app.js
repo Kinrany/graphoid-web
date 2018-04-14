@@ -47,7 +47,6 @@ const initial_edges = [
 const app = new Vue({
     el: '#app',
     data: {
-        // TODO: use GraphFormat in app and props
         graph: GraphFormat.Graph(initial_nodes, initial_edges)
     },
     methods: {
