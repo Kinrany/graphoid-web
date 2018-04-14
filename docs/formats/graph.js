@@ -68,7 +68,6 @@ var GraphFormat = {
 
     // this: GraphFormat.Graph, edge_id_list: string[]
     delete_edges(edge_id_list) {
-        console.log(edge_id_list);
         this.edges = this.edges
             .filter(edge => !edge_id_list.includes(edge.id));
     },

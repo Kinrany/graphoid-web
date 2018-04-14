@@ -8,15 +8,15 @@
         <table class="pure-table pure-table-striped">
             <thead>
                 <th>из \ в</th>
-                <th v-for="node in nodes">
+                <th v-for="node in nodes" :key="node.id">
                     {{node.id}}
                 </th>
             </thead>
-            <tr v-for="(line, index) in matrix">
+            <tr v-for="(line, index) in matrix" :key="index">
                 <td>
                     <b>{{nodes[index].id}}</b>
                 </td>
-                <td v-for="cell in line">
+                <td v-for="cell in line" :key="cell">
                     {{cell ? 'X' : ' '}}
                 </td>
             </tr>
