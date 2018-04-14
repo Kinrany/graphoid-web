@@ -42,14 +42,14 @@ var GraphFormat = {
     Graph(nodes, edges) {
         return {
             last_node_index: nodes.max(),
-            nodes: nodes.map(Node),
-            edges: edges.map(Edge),
+            nodes: nodes.map(GraphFormat.Node),
+            edges: edges.map(GraphFormat.Edge),
         };
     },
 
     add_node() {
         this.last_node_index += 1;
-        let node = Node(this.last_node_index);
+        let node = GraphFormat.Node(this.last_node_index);
         this.nodes.push(node);
     },
 
