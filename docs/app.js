@@ -78,9 +78,6 @@ const app = new Vue({
         on_add_node: function (event) {
             graph_store.commit('add_node');
         },
-        on_add_edge: function ({ source, target }) {
-            graph_store.commit('add_edge', {source, target});
-        },
         on_deleted_elements: function ({ nodes, edges }) {
             graph_store.commit('delete_edges', edges);
             graph_store.commit('delete_nodes', nodes);

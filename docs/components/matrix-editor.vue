@@ -76,7 +76,7 @@ module.exports = {
         console.assert(edge !== undefined);
         this.$emit("deleted-elements", { nodes: [], edges: [edge] });
       } else {
-        this.$emit("add-edge", { source, target });
+        graph_store.commit("add_edge", { source, target });
       }
     }
   }
