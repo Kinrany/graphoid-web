@@ -74,7 +74,7 @@ module.exports = {
           .filter(e => e.source == source)
           .find(e => e.target == target).id;
         console.assert(edge !== undefined);
-        this.$emit("deleted-elements", { nodes: [], edges: [edge] });
+        graph_store.commit("delete_edges", [edge]);
       } else {
         graph_store.commit("add_edge", { source, target });
       }
