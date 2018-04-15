@@ -22,13 +22,12 @@
 
 <script>
 module.exports = {
-  props: ["graph"],
   computed: {
     nodes: function() {
-      return this.graph.nodes;
+      return graph_store.state.graph.nodes;
     },
     edges: function() {
-      return this.graph.edges;
+      return graph_store.state.graph.edges;
     },
     id_to_index: function() {
       const n = this.nodes.length;
@@ -65,19 +64,19 @@ module.exports = {
   },
   methods: {
     index_to_id(index) {
-      return this.graph.nodes[index].id;
+      return this.nodes[index].id;
     },
     toggle_edge(row, col) {
       let source = this.index_to_id(row);
       let target = this.index_to_id(col);
       if (this.matrix[row][col]) {
-        let edge = this.graph.edges
+        let edge = this.edges
           .filter(e => e.source == source)
           .find(e => e.target == target).id;
         console.assert(edge !== undefined);
-        this.$emit("deleted-elements", { nodes: [], edges: [edge] });
+        graph_store.commit("delete_edges", [edge]);
       } else {
-        this.$emit("add-edge", { source, target });
+        graph_store.commit("add_edge", { source, target });
       }
     }
   }

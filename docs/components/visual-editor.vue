@@ -12,11 +12,15 @@
 
 <script>
 module.exports = {
-  props: ["graph"],
   data: function() {
     return {
       editor: null
     };
+  },
+  computed: {
+    graph: function() {
+      return graph_store.state.graph;
+    }
   },
   methods: {
     delete_selected: function delete_selected() {
@@ -25,7 +29,8 @@ module.exports = {
 
       let edges = selected.filter("edge").map(ele => ele.id());
       let nodes = selected.filter("node").map(ele => ele.id());
-      this.$emit("deleted-elements", { edges, nodes });
+      graph_store.commit("delete_edges", edges);
+      graph_store.commit("delete_nodes", nodes);
     },
     save_png: function save_png() {
       let png = this.editor.png();
@@ -73,5 +78,5 @@ module.exports = {
       }
     }
   }
-}
+};
 </script>

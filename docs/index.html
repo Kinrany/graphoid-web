@@ -13,6 +13,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.0.1/vuex.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1.3.4/src/httpVueLoader.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.8/cytoscape.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
@@ -23,22 +24,15 @@
        class="pure-g">
     <h1 class="pure-u-1">Шкатулка графов</h1>
     <div class="pure-u-1 pure-u-xl-1-2">
-      <visual-editor :graph="graph"
-                     @deleted-elements="on_deleted_elements">
-      </visual-editor>
+      <visual-editor></visual-editor>
     </div>
     <div class="pure-u-1 pure-u-xl-1-2">
       <p>
         <button @click="on_add_node"
                 class="pure-button">Добавить вершину</button>
       </p>
-      <matrix-editor :graph="graph"
-                     @add-edge="on_add_edge"
-                     @deleted-elements="on_deleted_elements">
-      </matrix-editor>
-      <text-editor :graph="graph"
-                   @load="on_load"
-                   style="padding-top: 6px">
+      <matrix-editor></matrix-editor>
+      <text-editor style="padding-top: 6px">
       </text-editor>
     </div>
   </div>

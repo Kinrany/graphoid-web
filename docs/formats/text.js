@@ -22,7 +22,7 @@ var TextFormat = {
         // NxN matrix filled with zeroes
         const matrix = new Array(n).fill(null).map(a => new Array(n).fill(0));
 
-        for (let {source, target} of graph.edges) {
+        for (let { source, target } of graph.edges) {
             let source_id = id_to_index[source];
             let target_id = id_to_index[target];
             matrix[source_id][target_id] = 1;
@@ -36,10 +36,20 @@ var TextFormat = {
         const rows = text.trim().split('\n').map(r => r.trim());
         const n = parseInt(rows[0]);
         const matrix = rows.slice(1)
-            .map(r => r.split(' '))
-            .map(r => r.map(x => parseInt(x)));
-        
-        const index_to_id = (index) => index+1;
+            .map(r => r
+                .split(' ')
+                .map(x => parseInt(x)));
+
+        if (matrix.length !== n) {
+            throw "Invalid matrix size";
+        }
+        for (let row of matrix) {
+            if (row.length !== n) {
+                throw "Invalid matrix size";
+            }
+        }
+
+        const index_to_id = (index) => index + 1;
 
         const nodes = [];
         for (let i = 0; i < n; ++i) {
@@ -49,7 +59,7 @@ var TextFormat = {
         const edges = [];
         for (let i_r = 0; i_r < n; ++i_r) {
             for (let i_c = 0; i_c < n; ++i_c) {
-                if (matrix[i_r][i_c] !== 0) {
+                if (matrix[i_r][i_c]) {
                     let source_id = index_to_id(i_r);
                     let target_id = index_to_id(i_c);
                     edges.push([source_id, target_id]);
