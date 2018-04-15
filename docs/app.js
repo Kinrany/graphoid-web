@@ -52,7 +52,7 @@ const graph_store = new Vuex.Store({
         add_node(state) {
             GraphFormat.add_node.call(state.graph);
         },
-        add_edge(state, {source, target}) {
+        add_edge(state, { source, target }) {
             GraphFormat.add_edge.call(state.graph, source, target);
         },
         delete_nodes(state, nodes) {
@@ -77,10 +77,6 @@ const app = new Vue({
     methods: {
         on_add_node: function (event) {
             graph_store.commit('add_node');
-        },
-        on_deleted_elements: function ({ nodes, edges }) {
-            graph_store.commit('delete_edges', edges);
-            graph_store.commit('delete_nodes', nodes);
         }
     },
     components: {
