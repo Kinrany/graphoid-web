@@ -12,11 +12,15 @@
 
 <script>
 module.exports = {
-  props: ["graph"],
   data: function() {
     return {
       editor: null
     };
+  },
+  computed: {
+    graph: function() {
+      return graph_store.state.graph;
+    }
   },
   methods: {
     delete_selected: function delete_selected() {
@@ -73,5 +77,5 @@ module.exports = {
       }
     }
   }
-}
+};
 </script>
