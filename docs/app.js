@@ -44,6 +44,33 @@ const initial_edges = [
     [4, 4]
 ];
 
+const graph_store = new Vuex.Store({
+    state: {
+        nodes: [],
+        edges: [],
+        last_node_index: 0
+    },
+    mutations: {
+        add_node(state) {
+            GraphFormat.add_node.call(state);
+        },
+        add_edge(state, source, target) {
+            GraphFormat.add_edge.call(state, source, target);
+        },
+        delete_nodes(state, nodes) {
+            GraphFormat.delete_nodes.call(state, nodes);
+        },
+        delete_edges(state, edges) {
+            GraphFormat.delete_edges.call(state, edges);
+        },
+        load(state, new_graph) {
+            state.nodes = new_graph.nodes;
+            state.edges = new_graph.edges;
+            state.last_node_index = new_graph.last_node_index;
+        }
+    }
+});
+
 const app = new Vue({
     el: '#app',
     data: {
@@ -53,7 +80,7 @@ const app = new Vue({
         on_add_node: function (event) {
             GraphFormat.add_node.call(this.graph);
         },
-        on_add_edge: function ({source, target}) {
+        on_add_edge: function ({ source, target }) {
             GraphFormat.add_edge.call(this.graph, source, target);
         },
         on_deleted_elements: function ({ nodes, edges }) {
