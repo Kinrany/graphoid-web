@@ -22,8 +22,10 @@
 
 <script>
 module.exports = {
-  props: ["graph"],
   computed: {
+    graph: function () {
+      return graph_store.state.graph;
+    },
     nodes: function() {
       return this.graph.nodes;
     },

@@ -33,8 +33,7 @@
         <button @click="on_add_node"
                 class="pure-button">Добавить вершину</button>
       </p>
-      <matrix-editor :graph="graph"
-                     @add-edge="on_add_edge"
+      <matrix-editor @add-edge="on_add_edge"
                      @deleted-elements="on_deleted_elements">
       </matrix-editor>
       <text-editor :graph="graph"
