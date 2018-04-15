@@ -36,9 +36,7 @@ module.exports = {
       }
     },
     error() {
-      let val = this.parsed === null;
-      console.log(val);
-      return val;
+      return this.parsed === null;
     }
   },
   methods: {
