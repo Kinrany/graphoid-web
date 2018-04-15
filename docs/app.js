@@ -46,13 +46,13 @@ const initial_edges = [
 
 const graph_store = new Vuex.Store({
     state: {
-        graph: GraphFormat.Graph([], [])
+        graph: GraphFormat.Graph(initial_nodes, initial_edges)
     },
     mutations: {
         add_node(state) {
             GraphFormat.add_node.call(state.graph);
         },
-        add_edge(state, source, target) {
+        add_edge(state, {source, target}) {
             GraphFormat.add_edge.call(state.graph, source, target);
         },
         delete_nodes(state, nodes) {
@@ -69,22 +69,24 @@ const graph_store = new Vuex.Store({
 
 const app = new Vue({
     el: '#app',
-    data: {
-        graph: GraphFormat.Graph(initial_nodes, initial_edges)
+    computed: {
+        graph: function () {
+            return graph_store.state.graph;
+        }
     },
     methods: {
         on_add_node: function (event) {
-            GraphFormat.add_node.call(this.graph);
+            graph_store.commit('add_node');
         },
         on_add_edge: function ({ source, target }) {
-            GraphFormat.add_edge.call(this.graph, source, target);
+            graph_store.commit('add_edge', {source, target});
         },
         on_deleted_elements: function ({ nodes, edges }) {
-            GraphFormat.delete_edges.call(this.graph, edges);
-            GraphFormat.delete_nodes.call(this.graph, nodes);
+            graph_store.commit('delete_edges', edges);
+            graph_store.commit('delete_nodes', nodes);
         },
         on_load: function (new_graph) {
-            this.graph = new_graph;
+            graph_store.commit('load', new_graph);
         }
     },
     components: {
