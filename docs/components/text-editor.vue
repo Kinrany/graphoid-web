@@ -1,6 +1,10 @@
 <template>
   <div class="pure-g">
-    <textarea v-model="text" class="pure-input-1" :rows="rows" :cols="cols"></textarea>
+    <textarea v-model="text" 
+              :rows="rows" 
+              :cols="cols"
+              :class="[{'red-background': error}, 'pure-input-1']">
+    </textarea>
     <p class="pure-u-1">
         <button @click="save" class="pure-button">Загрузить</button>
     </p>
@@ -23,15 +27,26 @@ module.exports = {
     },
     cols() {
       return this.graph.nodes.length;
+    },
+    parsed() {
+      try {
+        return TextFormat.to_graph(this.text);
+      } catch {
+        return null;
+      }
+    },
+    error() {
+      let val = this.parsed === null;
+      console.log(val);
+      return val;
     }
   },
   methods: {
     save() {
-      try {
-        let new_graph = TextFormat.to_graph(this.text);
-        graph_store.commit('load', new_graph);
-      } catch (e) {
-        console.error(e);
+      if (!this.error) {
+        graph_store.commit("load", this.parsed);
+      } else {
+        console.error("Can't save invalid graph.");
       }
     },
     update_text() {
@@ -51,3 +66,9 @@ module.exports = {
   }
 };
 </script>
+
+<style scoped>
+.red-background {
+  background-color: lightpink;
+}
+</style>
