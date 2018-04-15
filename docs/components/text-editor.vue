@@ -9,13 +9,15 @@
 
 <script>
 module.exports = {
-  props: ["graph"],
   data: function() {
     return {
       text: ""
     };
   },
   computed: {
+    graph() {
+      return graph_store.state.graph;
+    },
     rows() {
       return this.graph.nodes.length + 1;
     },
