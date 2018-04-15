@@ -84,9 +84,6 @@ const app = new Vue({
         on_deleted_elements: function ({ nodes, edges }) {
             graph_store.commit('delete_edges', edges);
             graph_store.commit('delete_nodes', nodes);
-        },
-        on_load: function (new_graph) {
-            graph_store.commit('load', new_graph);
         }
     },
     components: {

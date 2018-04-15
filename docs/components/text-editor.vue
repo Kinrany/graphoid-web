@@ -29,7 +29,7 @@ module.exports = {
     save() {
       try {
         let new_graph = TextFormat.to_graph(this.text);
-        this.$emit("load", new_graph);
+        graph_store.commit('load', new_graph);
       } catch (e) {
         console.error(e);
       }
