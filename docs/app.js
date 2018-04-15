@@ -69,11 +69,6 @@ const graph_store = new Vuex.Store({
 
 const app = new Vue({
     el: '#app',
-    computed: {
-        graph: function () {
-            return graph_store.state.graph;
-        }
-    },
     methods: {
         on_add_node: function (event) {
             graph_store.commit('add_node');
