@@ -92,14 +92,23 @@ var CyGraphFormat = {
     },
 
     // this: CyGraphFormat.Graph
+    // returns: (CyGraphFormat.Node[] | CyGraphFormat.Edge[])[]
     get_elements() {
         return this.nodes.concat(this.edges);
     },
 
     // graph: GraphFormat.Graph
     from_graph(graph) {
-        const nodes = graph.nodes.map(({id}) => id);
-        const edges = graph.edges.map(({source, target}) => [source, target]);
+        const nodes = graph.nodes.map(({ id }) => id);
+        const edges = graph.edges.map(({ source, target }) => [source, target]);
         return CyGraphFormat.Graph(nodes, edges);
-    }
+    },
+
+    // graph: GraphFormat.Graph
+    // returns: (CyGraphFormat.Node[] | CyGraphFormat.Edge[])[]
+    elements_from_graph(graph) {
+        const nodes = graph.nodes.map(({ id }) => CyGraphFormat.Node(id));
+        const edges = graph.edges.map(({ source, target }) => CyGraphFormat.Edge([source, target]));
+        return nodes.concat(edges);
+    },
 };

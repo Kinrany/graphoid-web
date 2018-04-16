@@ -5,6 +5,7 @@
             <button @click="delete_selected()" class="pure-button">Удалить</button>
         </p>
         <p>
+            <!-- TODO: grey out if parsing failed -->
             <button @click="save_png()" class="pure-button">Сохранить изображение</button>
         </p>
     </div>
@@ -42,11 +43,13 @@ module.exports = {
       }
     },
     load_elements() {
-      let local_graph_copy = CyGraphFormat.from_graph(this.graph);
+      const elements = CyGraphFormat.elements_from_graph(this.graph);
 
       this.editor.elements().remove();
-      this.editor.add(CyGraphFormat.get_elements.apply(local_graph_copy));
+      this.editor.add(elements);
       this.editor.layout({ name: "circle" }).run();
+
+      // TODO: restore previous layout
     }
   },
   mounted: function() {
