@@ -5,7 +5,6 @@
             <button @click="delete_selected()" class="pure-button">Удалить</button>
         </p>
         <p>
-            <!-- TODO: grey out if parsing failed -->
             <button @click="save_png()" class="pure-button">Сохранить изображение</button>
         </p>
     </div>

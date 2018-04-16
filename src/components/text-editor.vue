@@ -6,6 +6,7 @@
               :class="[{'red-background': error}, 'pure-input-1']">
     </textarea>
     <p class="pure-u-1">
+        <!-- TODO: grey out if parsing failed -->
         <button @click="save" class="pure-button">Загрузить</button>
     </p>
   </div>
