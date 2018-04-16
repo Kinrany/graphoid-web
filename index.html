@@ -9,7 +9,7 @@
   <link rel="stylesheet"
         href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
   <link rel="stylesheet"
-        href="app.css">
+        href="./src/app.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
@@ -32,8 +32,7 @@
                 class="pure-button">Добавить вершину</button>
       </p>
       <matrix-editor></matrix-editor>
-      <text-editor style="padding-top: 6px">
-      </text-editor>
+      <text-editor style="padding-top: 6px"></text-editor>
     </div>
   </div>
   <div class="pure-g">
@@ -54,10 +53,10 @@
   </div>
 </body>
 
-<script src="monkeypatch.js"></script>
-<script src="formats/cygraph.js"></script>
-<script src="formats/graph.js"></script>
-<script src="formats/text.js"></script>
-<script src="app.js"></script>
+<script src="./src/monkeypatch.js"></script>
+<script src="./src/formats/cygraph.js"></script>
+<script src="./src/formats/graph.js"></script>
+<script src="./src/formats/text.js"></script>
+<script src="./src/app.js"></script>
 
 </html>

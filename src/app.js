@@ -75,8 +75,8 @@ const app = new Vue({
         }
     },
     components: {
-        'visual-editor': httpVueLoader('components/visual-editor.vue'),
-        'matrix-editor': httpVueLoader('components/matrix-editor.vue'),
-        'text-editor': httpVueLoader('components/text-editor.vue')
+        'visual-editor': httpVueLoader('./src/components/visual-editor.vue'),
+        'matrix-editor': httpVueLoader('./src/components/matrix-editor.vue'),
+        'text-editor': httpVueLoader('./src/components/text-editor.vue')
     }
 });
