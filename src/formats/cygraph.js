@@ -68,44 +68,8 @@ var CyGraphFormat = {
         };
     },
 
-    // this: CyGraphFormat.Graph
-    add_node() {
-        this.last_node_index += 1;
-        let node = CyGraphFormat.Node(this.last_node_index);
-        this.nodes.push(node);
-    },
-
-    // this: CyGraphFormat.Graph, node_id_list: string[]
-    delete_nodes(node_id_list) {
-        this.nodes = this.nodes
-            .filter(node => !node_id_list.includes(node.data.id));
-
-        this.edges = this.edges
-            .filter(edge => !node_id_list.includes(edge.data.source))
-            .filter(edge => !node_id_list.includes(edge.data.target));
-    },
-
-    // this: CyGraphFormat.Graph, edge_id_list: string[]
-    delete_edges(edge_id_list) {
-        this.edges = this.edges
-            .filter(edge => !edge_id_list.includes(edge.data.id));
-    },
-
-    // this: CyGraphFormat.Graph
-    // returns: (CyGraphFormat.Node[] | CyGraphFormat.Edge[])[]
-    get_elements() {
-        return this.nodes.concat(this.edges);
-    },
-
     // graph: GraphFormat.Graph
-    from_graph(graph) {
-        const nodes = graph.nodes.map(({ id }) => id);
-        const edges = graph.edges.map(({ source, target }) => [source, target]);
-        return CyGraphFormat.Graph(nodes, edges);
-    },
-
-    // graph: GraphFormat.Graph
-    // returns: (CyGraphFormat.Node[] | CyGraphFormat.Edge[])[]
+    // returns: (CyGraphFormat.Node | CyGraphFormat.Edge)[]
     elements_from_graph(graph) {
         const nodes = graph.nodes.map(({ id }) => CyGraphFormat.Node(id));
         const edges = graph.edges.map(({ source, target }) => CyGraphFormat.Edge([source, target]));
