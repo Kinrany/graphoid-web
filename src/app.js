@@ -44,7 +44,6 @@ const initial_edges = [
     [4, 4]
 ];
 
-// TODO: store node colors
 // TODO: store directedness
 const graph_store = new Vuex.Store({
     state: {
