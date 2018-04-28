@@ -47,8 +47,6 @@ module.exports = {
       this.editor.elements().remove();
       this.editor.add(elements);
       this.editor.layout({ name: "circle" }).run();
-
-      // TODO: restore previous layout
     }
   },
   mounted: function() {
