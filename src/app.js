@@ -67,16 +67,9 @@ const graph_store = new Vuex.Store({
     }
 });
 
+const appComponent = httpVueLoader('./src/components/app.vue');
+
 const app = new Vue({
     el: '#app',
-    methods: {
-        on_add_node: function (event) {
-            graph_store.commit('add_node');
-        }
-    },
-    components: {
-        'visual-editor': httpVueLoader('./src/components/visual-editor.vue'),
-        'matrix-editor': httpVueLoader('./src/components/matrix-editor.vue'),
-        'text-editor': httpVueLoader('./src/components/text-editor.vue')
-    }
+    render: (h) => h(appComponent)
 });
