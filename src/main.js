@@ -69,7 +69,7 @@ const graph_store = new Vuex.Store({
 
 const appComponent = httpVueLoader('./src/components/app.vue');
 
-const app = new Vue({
+new Vue({
     el: '#app',
     render: (h) => h(appComponent)
 });
