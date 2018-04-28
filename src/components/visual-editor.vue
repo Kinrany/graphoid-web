@@ -1,13 +1,17 @@
 <template>
-    <div>
-        <div id="editor" tabindex="-1" @keydown="on_keydown"></div>
-        <p>
-            <button @click="delete_selected()" class="pure-button">Удалить</button>
-        </p>
-        <p>
-            <button @click="save_png()" class="pure-button">Сохранить изображение</button>
-        </p>
-    </div>
+  <div>
+    <div id="editor" 
+         tabindex="-1" 
+         @keydown="on_keydown"></div>
+    <p>
+      <button class="pure-button"
+              @click="delete_selected()">Удалить</button>
+    </p>
+    <p>
+      <button class="pure-button"
+              @click="save_png()">Сохранить изображение</button>
+    </p>
+  </div>
 </template>
 
 <script>
