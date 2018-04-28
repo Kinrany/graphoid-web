@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div id="editor" 
+    <div id="editor"
+         class="editor"
          tabindex="-1" 
          @keydown="on_keydown"></div>
     <p>
@@ -84,3 +85,11 @@ module.exports = {
   }
 };
 </script>
+
+<style scoped>
+.editor {
+  width: 600px;
+  height: 300px;
+  border: 1px solid lightgrey;
+}
+</style>
