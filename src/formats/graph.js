@@ -17,15 +17,14 @@ var GraphFormat = {
 
   Graph(nodes, edges) {
     return {
-      last_node_index: nodes.max(),
       nodes: nodes.map(GraphFormat.Node),
       edges: edges.map(GraphFormat.Edge),
     };
   },
 
   add_node() {
-    this.last_node_index += 1;
-    let node = GraphFormat.Node(this.last_node_index);
+    let last_id = parseInt(this.nodes.slice(-1)[0].id);
+    let node = GraphFormat.Node(last_id + 1);
     this.nodes.push(node);
   },
 

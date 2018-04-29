@@ -23,7 +23,6 @@ declare module GraphFormat {
 
   type GraphType = {
     nodes: Array<NodeType>,
-    edges: Array<EdgeType>,
-    last_node_index: number
+    edges: Array<EdgeType>
   }
 }
