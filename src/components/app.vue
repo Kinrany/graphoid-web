@@ -14,7 +14,7 @@
 </div>
 </template>
 
-<script>
+<script lang="js">
 module.exports = {
   methods: {
     on_add_node: function(event) {

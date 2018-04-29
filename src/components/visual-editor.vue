@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script>
+<script lang="js">
 module.exports = {
   data: function() {
     return {

@@ -20,7 +20,7 @@
     </div>
 </template>
 
-<script>
+<script lang="js">
 module.exports = {
   computed: {
     nodes: function() {
