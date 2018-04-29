@@ -30,8 +30,7 @@
   *         target: '2'
   *       }
   *     }
-  *   ],
-  *   last_node_index: 2
+  *   ]
   * }
 */
 
@@ -62,7 +61,6 @@ var CyGraphFormat = {
     // nodes: Array<number>, edges: Array<[number, number]>
     Graph(nodes, edges) {
         return {
-            last_node_index: nodes.max(),
             nodes: nodes.map(CyGraphFormat.Node),
             edges: edges.map(CyGraphFormat.Edge),
         };
