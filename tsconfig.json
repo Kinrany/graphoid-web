@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    "strict": true
   },
   "files": [
     "./src/*.js",
-    "./src/*.d.ts"
+    "./src/*.d.ts",
+    "./src/*.vue"
   ]
 }
