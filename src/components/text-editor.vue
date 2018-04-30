@@ -6,7 +6,7 @@
               :class="[{'red-background': error}, 'pure-input-1']">
     </textarea>
     <p>
-        <button @click="save" class="pure-button" :disabled="error">Загрузить</button>
+        <button @click="save" class="button" :disabled="error">Загрузить</button>
     </p>
   </div>
 </template>

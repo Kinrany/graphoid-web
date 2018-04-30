@@ -6,7 +6,7 @@
   <div class="column">
     <p>
     <button @click="on_add_node"
-            class="pure-button">Добавить вершину</button>
+            class="button">Добавить вершину</button>
     </p>
     <matrix-editor></matrix-editor>
     <text-editor style="padding-top: 6px"></text-editor>
