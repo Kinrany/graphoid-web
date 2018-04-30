@@ -1,9 +1,9 @@
 <template>
-<div class="pure-g">
-  <div class="pure-u-1 pure-u-xl-1-2">
+<div class="columns">
+  <div class="column">
     <visual-editor></visual-editor>
   </div>
-  <div class="pure-u-1 pure-u-xl-1-2">
+  <div class="column">
     <p>
     <button @click="on_add_node"
             class="pure-button">Добавить вершину</button>
