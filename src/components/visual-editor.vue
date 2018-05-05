@@ -5,11 +5,11 @@
          tabindex="-1" 
          @keydown="on_keydown"></div>
     <p>
-      <button class="pure-button"
+      <button class="button"
               @click="delete_selected()">Удалить</button>
     </p>
     <p>
-      <button class="pure-button"
+      <button class="button"
               @click="save_png()">Сохранить изображение</button>
     </p>
   </div>

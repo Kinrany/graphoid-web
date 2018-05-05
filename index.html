@@ -3,11 +3,11 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
   <title>Шкатулка графов</title>
   <link rel="stylesheet"
-        href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
-  <link rel="stylesheet"
-        href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
@@ -18,19 +18,19 @@
 </head>
 
 <body>
-  <h1>Шкатулка графов</h1>
+  <h1 class="title is-3">Шкатулка графов</h1>
   <div id="app"></div>
-  <div class="pure-g">
-    <div class="pure-u-1">
-      <h2>Управление</h2>
+  <div>
+    <div>
+      <h2 class="title is-4">Управление</h2>
       <p>Клик левой кнопкой &mdash; выделить вершину или ребро.</p>
       <p>Перетаскивание левой кнопкой &mdash; сдвинуть вершины или весь граф.</p>
       <p>Колесо мыши &mdash; приблизить или отдалить.</p>
       <p>Delete или Backspace &mdash; удалить выделенные вершины и рёбра.</p>
       <p>Нажатия на матрицу добавляют или убирают рёбра.</p>
     </div>
-    <div class="pure-u-1">
-      <h2>Исходный код</h2>
+    <div>
+      <h2 class="title is-4">Исходный код</h2>
       <p>
         <a href="https://github.com/kinrany/graphoid-web">github.com/kinrany/graphoid-web</a>
       </p>

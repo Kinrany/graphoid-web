@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table class="pure-table pure-table-striped">
+        <table class="table is-bordered">
             <thead>
                 <th>из \ в</th>
                 <th v-for="node in nodes" :key="node.id">

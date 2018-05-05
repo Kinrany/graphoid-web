@@ -1,12 +1,12 @@
 <template>
-  <div class="pure-g">
+  <div>
     <textarea v-model="text" 
               :rows="rows" 
               :cols="cols"
-              :class="[{'red-background': error}, 'pure-input-1']">
+              :class="[{'red-background': error}, 'textarea']">
     </textarea>
-    <p class="pure-u-1">
-        <button @click="save" class="pure-button" :disabled="error">Загрузить</button>
+    <p>
+        <button @click="save" class="button" :disabled="error">Загрузить</button>
     </p>
   </div>
 </template>
