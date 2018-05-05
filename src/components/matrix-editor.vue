@@ -1,23 +1,27 @@
 <template>
-    <div>
-        <table class="table is-bordered">
-            <thead>
-                <th>из \ в</th>
-                <th v-for="node in nodes" :key="node.id">
-                    {{node.id}}
-                </th>
-            </thead>
-            <tr v-for="(line, row) in matrix" :key="row">
-                <td>
-                    <b>{{nodes[row].id}}</b>
-                </td>
-                <td v-for="(cell, col) in line" :key="col" @click="toggle_edge(row, col)">
-                    {{cell ? 'X' : ' '}}
-                </td>
-            </tr>
-        </table>
-        <slot></slot>
-    </div>
+  <div>
+    <table class="table is-bordered">
+      <thead>
+        <th>из \ в</th>
+        <th class="cell-column-header has-text-centered"
+            v-for="node in nodes" :key="node.id">
+            {{node.id}}
+        </th>
+      </thead>
+      <tbody>
+        <tr v-for="(line, row) in matrix" :key="row">
+          <td class="cell-row-header">
+              <b>{{nodes[row].id}}</b>
+          </td>
+          <td class="cell has-text-centered"
+              v-for="(cell, col) in line" :key="col" 
+              @click="toggle_edge(row, col)">
+              {{cell ? 'X' : ' '}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script lang="js">
@@ -82,3 +86,14 @@ module.exports = {
   }
 };
 </script>
+
+<style scoped>
+.cell-column-header,
+.cell-row-header,
+.cell {
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+}
+</style>
