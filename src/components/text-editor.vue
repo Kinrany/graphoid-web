@@ -3,7 +3,7 @@
     <textarea v-model="text" 
               :rows="rows" 
               :cols="cols"
-              :class="[{'red-background': error}, 'pure-input-1']">
+              :class="[{'red-background': error}, 'textarea']">
     </textarea>
     <p>
         <button @click="save" class="button" :disabled="error">Загрузить</button>
