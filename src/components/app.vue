@@ -8,8 +8,7 @@
     <button @click="on_add_node"
             class="button">Добавить вершину</button>
     </p>
-    <matrix-editor></matrix-editor>
-    <text-editor style="padding-top: 6px"></text-editor>
+    <matrix></matrix>
   </div>
 </div>
 </template>
@@ -23,8 +22,7 @@ module.exports = {
   },
   components: {
     "visual-editor": httpVueLoader("./visual-editor.vue"),
-    "matrix-editor": httpVueLoader("./matrix-editor.vue"),
-    "text-editor": httpVueLoader("./text-editor.vue")
+    "matrix": httpVueLoader("./matrix.vue")
   }
 };
 </script>
