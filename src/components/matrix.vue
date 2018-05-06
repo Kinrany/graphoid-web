@@ -13,7 +13,7 @@
 module.exports = {
   data() {
     return {
-      label_text: "как текст"
+      as_text: false
     }
   },
   computed: {
