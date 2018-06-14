@@ -8,7 +8,7 @@
     <button @click="on_add_node"
             class="button">Добавить вершину</button>
     </p>
-    <matrix></matrix>
+    <matrix-container></matrix-container>
   </div>
 </div>
 </template>
@@ -22,7 +22,7 @@ module.exports = {
   },
   components: {
     "visual-editor": httpVueLoader("./visual-editor.vue"),
-    "matrix": httpVueLoader("./matrix.vue")
+    "matrix-container": httpVueLoader("./matrix-container.vue")
   }
 };
 </script>
