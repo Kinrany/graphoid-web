@@ -82,6 +82,12 @@ module.exports = {
       handler: function() {
         this.load_elements();
       }
+    },
+    graphStyle: {
+      deep: true,
+      handler(style) {
+        this.editor.style(style);
+      }
     }
   }
 };
