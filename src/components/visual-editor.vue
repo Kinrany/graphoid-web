@@ -22,6 +22,7 @@ module.exports = {
       editor: null
     };
   },
+  props: [ 'graph-style' ],
   computed: {
     graph: function() {
       return graph_store.state.graph;
@@ -61,7 +62,7 @@ module.exports = {
     this.editor = cytoscape({
       container: editorDOM,
       elements: [],
-      style: style,
+      style: this.graphStyle,
       layout: {
         name: "circle"
       },
